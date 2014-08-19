@@ -11,9 +11,9 @@ import javax.swing.SpringLayout;
 
 public class dialoger {
 
-	public void JDialog(String name, String cgpa , String sgpa, JEditorPane text)
+	public void JDialog(String name, String cgpa , String sgpa, String text)
 	{
-		JFrame frame = new JFrame(text.getText());
+		JFrame frame = new JFrame(text);
 
         Container contentPane = frame.getContentPane();
         SpringLayout layout = new SpringLayout();

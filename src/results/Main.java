@@ -2,18 +2,23 @@ package results;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.JSplitPane;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class Main implements ActionListener {
 
@@ -22,6 +27,7 @@ public class Main implements ActionListener {
 	JPanel pane, pane2;
 	JTextField error ;
 	JLabel name , year , branch;
+	JSplitPane jsp;
 	
 	Main(JFrame frame)
 	{
@@ -34,13 +40,18 @@ public class Main implements ActionListener {
 		pane.setOpaque(true);
         pane.setBackground(new Color(248, 213, 131));
         pane.setPreferredSize(new Dimension(250	, 500));
-		frame.add(pane,BorderLayout.WEST);
+		pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
         
 		text = new JEditorPane();
+		text.setAlignmentX(Component.CENTER_ALIGNMENT);
+		text.setMinimumSize((new Dimension(100,20)));
+		text.setMaximumSize((new Dimension(100,20)));
 		text.setText("1MS");
 		text.setBackground(new Color(150,50,70));
 		pane.add(text);
+
 		submit1 = new JButton("Submit");
+		submit1.setAlignmentX(Component.CENTER_ALIGNMENT);
 		pane.add(submit1,BorderLayout.SOUTH);
 		submit1.addActionListener(this);
 		
@@ -48,36 +59,53 @@ public class Main implements ActionListener {
 		pane2 = new JPanel();
 		pane2.setBackground(new Color(100, 100, 100));
 		pane2.setPreferredSize(new Dimension(250,500));		
-		frame.add(pane2,BorderLayout.EAST);
+		pane2.setLayout(new BoxLayout(pane2, BoxLayout.Y_AXIS));
 				
+		
+		
 		name = new JLabel("Name:");
 		pane2.add(name);	
 		iname = new JEditorPane();
 		iname.setText("");
 		iname.setBackground(new Color(150,50,70));
+		iname.setMinimumSize((new Dimension(150,20)));
+		iname.setMaximumSize((new Dimension(150,20)));
+		iname.setAlignmentX(Component.CENTER_ALIGNMENT);
 		pane2.add(iname);	
-		year = new JLabel("            Year:");
+		year = new JLabel("Year:");
 		pane2.add(year);
 		iyear = new JEditorPane();
 		iyear.setText("");
 		iyear.setBackground(new Color(150,50,70));
+		iyear.setMinimumSize((new Dimension(150,20)));
+		iyear.setMaximumSize((new Dimension(150,20)));
+		iyear.setAlignmentX(Component.CENTER_ALIGNMENT);
 		pane2.add(iyear);
 		branch = new JLabel("Branch:");
 		pane2.add(branch);
 		ibranch = new JEditorPane();
 		ibranch.setText("");
 		ibranch.setBackground(new Color(150,50,70));
+		ibranch.setMinimumSize((new Dimension(150,20)));
+		ibranch.setMaximumSize((new Dimension(150,20)));
+		ibranch.setAlignmentX(Component.CENTER_ALIGNMENT);
 		pane2.add(ibranch);
+
 		submit2 = new JButton("Submit");
+		submit2.setAlignmentX(Component.CENTER_ALIGNMENT);
 		pane2.add(submit2);
 		submit2.addActionListener(this);
+		
+		jsp =  new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
+                pane, pane2);
+		
+		frame.add(jsp);
 		
 		error = new JTextField();
 		error.setText("");
 		frame.getContentPane().add(error,BorderLayout.SOUTH);
 		
-		
-        frame.setPreferredSize(new Dimension(500,500));
+		frame.setMinimumSize(new Dimension(500,500));
         frame.pack();
         frame.setVisible(true);
    
@@ -126,7 +154,7 @@ public class Main implements ActionListener {
 					return;
 				}
 				try{
-					new dialoger().JDialog(string[0],string[1],string[2],text);
+					new dialoger().JDialog(string[0],string[1],string[2],text.getText());
 				}
 				catch (Exception e)
 				{
@@ -194,7 +222,7 @@ public class Main implements ActionListener {
 				}
 			}
 			if(flag)
-				new dialoger().JDialog(name1,str[1],str[2],text);
+				new dialoger().JDialog(name1,str[1],str[2],usn);
 		}
 		if(!flag)
 		error.setText("Not Found");
